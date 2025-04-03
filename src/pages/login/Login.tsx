@@ -19,7 +19,7 @@ function Login() {
                         texto="Bem-vindo de Volta!"
                     />
                 ) : (
-                  /* Se não estiver logado, exibe o formulário de login com um botão "Entrar" */
+                  /* Se não estiver logado, exibe o formulário de login com um botão "Entrar". */
                     <div>
                         <h2>Componente Login</h2> 
                         <button onClick={() => setIsLogged(true)}>Entrar</button>
