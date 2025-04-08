@@ -1,34 +1,39 @@
-/* Importa o hook useState do React para gerenciar o estado do login */
-import { useState } from "react";
-
-/* Importa o componente Home para ser exibido após o login */
-import Home from "../home/Home";
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
 function Login() {
-  /* Define um estado chamado isLogged, que controla se o usuário está logado ou não */
-  /* / O valor inicial é 'false', ou seja, o usuário começa deslogado */
-    const [isLogged, setIsLogged] = useState(false);
+  const { nome, trocarNome } = useContext(UserContext);
+  let navigate = useNavigate()
 
-    return (
-        <>
-            {   /* Verifica se o usuário está logado */
-                isLogged ? (  
-                  /* Se estiver logado, exibe o componente Home com um título e uma mensagem de boas-vindas */
-                    <Home
-                        titulo="Componente Home "
-                        texto="Bem-vindo de Volta!"
-                    />
-                ) : (
-                  /* Se não estiver logado, exibe o formulário de login com um botão "Entrar". */
-                    <div>
-                        <h2>Componente Login</h2> 
-                        <button onClick={() => setIsLogged(true)}>Entrar</button>
-                    </div> 
-                    /* Ao clicar no botão, altera o estado isLogged para true, mostrando o componente Home */
-                )
-            }
-        </>
-    )
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    navigate('/home')
+  }
+
+  return (
+    <div className='container'>
+      <form onSubmit={handleSubmit} className="formulario">
+        <h1>Autenticar Usuário</h1>
+        <div className="campo">
+          <label htmlFor="usuario">Nome</label>
+          <input
+            type="text"
+            id="usuario"
+            name="usuario"
+            placeholder="Nome do Usuário"
+            value={nome}
+            onChange={(event) => trocarNome(event.target.value)}
+          />
+        </div>
+        <button type='submit'>
+          Entrar
+        </button>
+
+      </form>
+
+    </div>
+  );
 }
-/* Exporta o componente Login para ser utilizado em outras partes da aplicação */
-export default Login
+
+export default Login;

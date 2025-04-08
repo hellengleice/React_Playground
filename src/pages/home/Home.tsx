@@ -1,14 +1,25 @@
-﻿interface homeProps {
-  titulo: string;
-  texto: string
-}
-function Home(props: homeProps) {
+﻿import { useContext } from 'react';
+
+import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
+
+function Home() {
+
+  const { nome } = useContext(UserContext);
+
   return (
-    <div>
-      <h2>{props.titulo}</h2>
-      <p>{props.texto}</p>
+    <div className='container'>
+      <div>
+        <h1>Autenticar Usuário</h1>
+        <h2>Seja Bem Vinde: <span>{nome}</span></h2>
+        <Link to="/login" 
+            className="botao"
+        >
+          Voltar
+        </Link>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
